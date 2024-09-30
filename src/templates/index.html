@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h1>Find Book Recommendations</h1>
+    
+    <form id="recommendationForm">
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" placeholder="e.g., Sports">
+        
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" placeholder="e.g., J.K. Rowling">
+        
+        <label for="min_price">Min Price (USD):</label>
+        <input type="number" id="min_price" name="min_price" step="0.01" placeholder="e.g., 10.00">
+        
+        <label for="max_price">Max Price (USD):</label>
+        <input type="number" id="max_price" name="max_price" step="0.01" placeholder="e.g., 50.00">
+        
+        <label for="rating">Minimum Rating:</label>
+        <input type="number" id="rating" name="rating" step="0.1" min="0" max="5" placeholder="e.g., 4.5">
+        
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <h2>Recommendations</h2>
+    
+    <div id="recommendations"></div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('recommendationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const genre = document.getElementById('genre').value;
+            const author = document.getElementById('author').value;
+            const minPrice = document.getElementById('min_price').value;
+            const maxPrice = document.getElementById('max_price').value;
+            const rating = document.getElementById('rating').value;
+
+            const filters = {
+                genre: genre,
+                author: author,
+                price_range: [parseFloat(minPrice) || 0, parseFloat(maxPrice) || Infinity],
+                rating: parseFloat(rating) || 0
+            };
+
+            fetch('/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(filters)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const recommendationsDiv = document.getElementById('recommendations');
+                recommendationsDiv.innerHTML = '';
+                if (data.length > 0) {
+                    const ul = document.createElement('ul');
+                    data.forEach(book => {
+                        const li = document.createElement('li');
+                        li.textContent = `${book.title} by ${book.author} - $${book.price}`;
+                        ul.appendChild(li);
+                    });
+                    recommendationsDiv.appendChild(ul);
+                } else {
+                    recommendationsDiv.textContent = 'No recommendations found. Try adjusting the filters!';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
