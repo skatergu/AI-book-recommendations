@@ -29,9 +29,12 @@
         <button type="submit">Get Recommendations</button>
     </form>
 
-    <!-- Buttons to load available genres and authors -->
-    <button id="loadGenres">Show Available Genres</button>
-    <button id="loadAuthors">Show Available Authors</button>
+    <!-- Align the two buttons side by side -->
+    <div class="container">
+        <button id="loadGenres">Show Available Genres</button>
+        <button id="loadAuthors">Show Available Authors</button>
+    </div>
+
     <!-- Sections to display genres and authors -->
     <h2>Available Genres</h2>
     <div id="genres"></div>
@@ -40,10 +43,6 @@
     <div id="authors"></div>
 
     <h2>Recommendations</h2>
-    <div id="recommendations"></div>
-
-    <h2>Recommendations</h2>
-    
     <div id="recommendations"></div>
 
     <script>
@@ -90,22 +89,56 @@
             .catch(error => console.error('Error:', error));
         });
 
+        // Function to toggle visibility of a div
+        function toggleVisibility(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
         // Fetch and display available genres
         document.getElementById('loadGenres').addEventListener('click', function() {
-            fetch('/genres')
-                .then(response => response.json())
-                .then(data => {
-                    const genresDiv = document.getElementById('genres');
-                    genresDiv.innerHTML = '';
-                    const ul = document.createElement('ul');
-                    data.forEach(genre => {
-                        const li = document.createElement('li');
-                        li.textContent = genre;
-                        ul.appendChild(li);
-                    });
-                    genresDiv.appendChild(ul);
-                })
-                .catch(error => console.error('Error:', error));
+            toggleVisibility('genres');
+            if (document.getElementById('genres').innerHTML === '') {
+                fetch('/genres')
+                    .then(response => response.json())
+                    .then(data => {
+                        const genresDiv = document.getElementById('genres');
+                        genresDiv.innerHTML = '';
+                        const ul = document.createElement('ul');
+                        data.forEach(genre => {
+                            const li = document.createElement('li');
+                            li.textContent = genre;
+                            ul.appendChild(li);
+                        });
+                        genresDiv.appendChild(ul);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+
+        // Fetch and display available authors
+        document.getElementById('loadAuthors').addEventListener('click', function() {
+            toggleVisibility('authors');
+            if (document.getElementById('authors').innerHTML === '') {
+                fetch('/authors')  // Assuming there's an endpoint to fetch authors
+                    .then(response => response.json())
+                    .then(data => {
+                        const authorsDiv = document.getElementById('authors');
+                        authorsDiv.innerHTML = '';
+                        const ul = document.createElement('ul');
+                        data.forEach(author => {
+                            const li = document.createElement('li');
+                            li.textContent = author;
+                            ul.appendChild(li);
+                        });
+                        authorsDiv.appendChild(ul);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
     </script>
 </body>

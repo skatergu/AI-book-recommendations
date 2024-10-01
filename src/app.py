@@ -15,6 +15,7 @@ def home():
 # Create a POST/GET route for book recommendations by title, genre, or other filters
 @app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
+    print("in route/recommendations")
     filters = {}
     # Handle POST requests (JSON or form)
     if request.method == 'POST':

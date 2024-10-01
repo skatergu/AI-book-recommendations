@@ -111,3 +111,34 @@ ul li {
   max-width: 600px;
   margin-top: 20px;
 }
+
+/* Ensure the buttons are aligned side by side */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #5bc0de;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #39b3d7;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Hide lists initially */
+#genres, #authors {
+  display: none;
+}
+
+h2 {
+  font-size: 24px;
+  color: #2c3e50;
+}

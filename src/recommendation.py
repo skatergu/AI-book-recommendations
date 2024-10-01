@@ -70,13 +70,10 @@ def recommend_by_filters(filters):
 
     # Filter by rating
     if filters.get('rating') is not None:
-        print(f"Filtering by rating: >= {filters['rating']}")
         condition = condition & (books['rating'] >= filters['rating'])
-        print(f"Condition after rating filter: {condition.sum()} matches")
 
     # Apply AND condition based on the filters
     filtered_books = books[condition]
-    print(f"Number of books after applying all filters: {len(filtered_books)}")
 
     # Sort by cosine similarity (if 'title' is provided)
     if 'title' in filters:
