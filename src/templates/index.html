@@ -29,6 +29,19 @@
         <button type="submit">Get Recommendations</button>
     </form>
 
+    <!-- Buttons to load available genres and authors -->
+    <button id="loadGenres">Show Available Genres</button>
+    <button id="loadAuthors">Show Available Authors</button>
+    <!-- Sections to display genres and authors -->
+    <h2>Available Genres</h2>
+    <div id="genres"></div>
+
+    <h2>Available Authors</h2>
+    <div id="authors"></div>
+
+    <h2>Recommendations</h2>
+    <div id="recommendations"></div>
+
     <h2>Recommendations</h2>
     
     <div id="recommendations"></div>
@@ -75,6 +88,24 @@
                 }
             })
             .catch(error => console.error('Error:', error));
+        });
+
+        // Fetch and display available genres
+        document.getElementById('loadGenres').addEventListener('click', function() {
+            fetch('/genres')
+                .then(response => response.json())
+                .then(data => {
+                    const genresDiv = document.getElementById('genres');
+                    genresDiv.innerHTML = '';
+                    const ul = document.createElement('ul');
+                    data.forEach(genre => {
+                        const li = document.createElement('li');
+                        li.textContent = genre;
+                        ul.appendChild(li);
+                    });
+                    genresDiv.appendChild(ul);
+                })
+                .catch(error => console.error('Error:', error));
         });
     </script>
 </body>

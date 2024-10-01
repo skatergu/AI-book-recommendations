@@ -1,21 +1,16 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from recommendation import recommend_by_filters, get_books_by_keyword, get_genres, get_subgenres
+from recommendation import recommend_by_filters, get_books, get_books_by_keyword, get_genres, get_subgenres
 from utils import sort_books
 
 app = Flask(__name__)
 CORS(app)  
 
+books = get_books()
+
 @app.route('/')
 def home():
     return render_template('index.html')
-
-# Handle GET requests with genre in the URL. prob not use
-@app.route('/recommend/<string:genre>/', methods=['GET'])
-def recommend_by_genre(genre):
-    filters = {'genre': genre}
-    recommendations = recommend_by_filters(filters)
-    return jsonify(recommendations)
 
 # Create a POST/GET route for book recommendations by title, genre, or other filters
 @app.route('/recommend', methods=['GET', 'POST'])
@@ -87,16 +82,18 @@ def search_books():
     # Return the matching book titles as a JSON response
     return jsonify(matching_books)
 
+# for retrieving all available authors
+@app.route('/authors', methods=['GET'])
+def authors():
+    authors = books['author'].unique().tolist()
+    return jsonify(authors)
+
+
 # for retrieving available genres
 @app.route('/genres', methods=['GET'])
 def genres():
     return jsonify(get_genres())
 
-# for retrieving subgenres based on genre
-@app.route('/subgenres', methods=['GET'])
-def subgenres():
-    genre = request.args.get('genre')
-    return jsonify(get_subgenres(genre))
 
 if __name__ == '__main__':
     app.run(debug=True)

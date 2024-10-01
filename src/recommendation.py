@@ -21,7 +21,10 @@ books['price'] = books['price'].round(2)
 count_vectorizer = CountVectorizer(stop_words='english')
 count_matrix_main_genre = count_vectorizer.fit_transform(books['genre'])  # Use 'main genre' column
 cosine_sim = cosine_similarity(count_matrix_main_genre, count_matrix_main_genre)
-print("Columns in the CSV file:", books.columns.tolist())
+# print("Columns in the CSV file:", books.columns.tolist())
+
+def get_books():
+    return books
 
 # Helper function to get recommendations based on filters (title, genre, author, etc.)
 def recommend_by_filters(filters):

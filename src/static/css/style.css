@@ -1,4 +1,4 @@
-
+/* Basic reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,112 +6,108 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
-  padding: 20px;
-  color: #444;
-}
-
-h1 {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
   color: #333;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-form {
+h1, h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+/* Styling the form */
+#recommendationForm {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
   max-width: 600px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e1e4e8;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
-  font-size: 1rem;
-  margin-bottom: 5px;
-  color: #555;
+  margin-bottom: 8px;
   font-weight: bold;
+  color: #34495e;
 }
 
-input {
+input[type="text"],
+input[type="number"] {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  transition: background-color 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  background-color: #eef2f7;
-  border-color: #007bff;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 button {
-  display: block;
-  width: 100%;
-  background-color: #007bff;
-  color: white;
-  padding: 12px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
-h2 {
-  text-align: center;
-  margin-top: 50px;
-  color: #333;
-  font-size: 1.5rem;
+/* Styling the genres and authors buttons */
+#loadGenres, #loadAuthors {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-#recommendations {
-  max-width: 600px;
-  margin: 20px auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+#loadGenres:hover, #loadAuthors:hover {
+  background-color: #16a085;
 }
 
+/* Styling the lists of genres and authors */
 ul {
-  list-style: none;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: #ecf0f1;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #2c3e50;
+}
+
+/* Styling the recommendations section */
+#recommendations ul {
   padding-left: 0;
 }
 
-li {
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 1rem;
+#recommendations ul li {
+  background-color: #e67e22;
+  color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-li:last-child {
-  border-bottom: none;
-}
-
-.error {
-  color: red;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-  form, #recommendations {
-    padding: 15px;
-  }
+#recommendations {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
 }
