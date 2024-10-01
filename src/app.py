@@ -21,7 +21,6 @@ def recommend_by_genre(genre):
 @app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
     filters = {}
-
     # Handle POST requests (JSON or form)
     if request.method == 'POST':
         if request.is_json:  # If the request contains JSON
@@ -70,8 +69,7 @@ def recommend():
     recommendations = recommend_by_filters(filters)
     return jsonify(recommendations)
 
-
-# Create a GET route for searching books by keyword
+# for searching books by keyword
 @app.route('/search', methods=['GET'])
 def search_books():
     # Retrieve the keyword from query parameters
@@ -99,13 +97,6 @@ def genres():
 def subgenres():
     genre = request.args.get('genre')
     return jsonify(get_subgenres(genre))
-
-# for sorting books
-@app.route('/sort', methods=['POST'])
-def sort():
-    data = request.json
-    sorted_books = sort_books(data['books'], data['sort_by'], data['order'])
-    return jsonify(sorted_books)
 
 if __name__ == '__main__':
     app.run(debug=True)
