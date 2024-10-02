@@ -53,21 +53,24 @@
         document.getElementById('recommendationForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const title = document.getElementById('title').value;
-            const genre = document.getElementById('genre').value;
-            const author = document.getElementById('author').value;
-            const minPrice = document.getElementById('min_price').value;
-            const maxPrice = document.getElementById('max_price').value;
-            const rating = document.getElementById('rating').value;
+            const title = document.getElementById('title').value || '';  
+            const genre = document.getElementById('genre').value || ''; 
+            const author = document.getElementById('author').value || '';  
+            const minPrice = parseFloat(document.getElementById('min_price').value);
+            const maxPrice = parseFloat(document.getElementById('max_price').value);
+            const rating = parseFloat(document.getElementById('rating').value);
 
             const filters = {
-                title: title, 
-                genre: genre,
-                author: author,
-                price_range: [parseFloat(minPrice) || 0, parseFloat(maxPrice) || Infinity],
-                rating: parseFloat(rating) || 0
+                title: title.trim(), 
+                genre: genre.trim(),
+                author: author.trim(),
+                price_range: [
+                    isNaN(minPrice) ? 0 : minPrice,  
+                    isNaN(maxPrice) ? Infinity : maxPrice 
+                ],
+                rating: isNaN(rating) ? 0 : rating  
             };
-            print("Sending Filters:", filters);  
+            console.log("Sending Filters:", filters);  
 
             fetch('/recommend', {
                 method: 'POST',
@@ -108,6 +111,7 @@
         // Fetch and display available genres
         document.getElementById('loadGenres').addEventListener('click', function() {
             toggleVisibility('genres');
+            console.log("genres clicked")
             if (document.getElementById('genres').innerHTML === '') {
                 fetch('/genres')
                     .then(response => response.json())
@@ -128,7 +132,9 @@
 
         // Fetch and display available authors
         document.getElementById('loadAuthors').addEventListener('click', function() {
-            toggleVisibility('authors');
+            toggleVisibility('authors');            
+            console.log("authors clicked")
+
             if (document.getElementById('authors').innerHTML === '') {
                 fetch('/authors')  // Assuming there's an endpoint to fetch authors
                     .then(response => response.json())
