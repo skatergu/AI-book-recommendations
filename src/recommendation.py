@@ -30,8 +30,12 @@ def get_books():
 def recommend_by_filters(filters):
     filtered_books = books.copy()
 
-    # Initialize a condition that is always True (for AND logic)
     condition = pd.Series([True] * len(books))
+
+    # Filter by title (finding similar titles)
+    if filters.get('title'):
+        print("filter by title")
+        condition = condition & books['title'].str.contains(filters['title'], case=False, na=False)
 
     # Filter by genre
     if filters.get('genre'):
@@ -75,32 +79,25 @@ def recommend_by_filters(filters):
     # Apply AND condition based on the filters
     filtered_books = books[condition]
 
-    # Sort by cosine similarity (if 'title' is provided)
-    if 'title' in filters:
+    # Sort by cosine similarity (if 'title' is provided and exists in the dataset)
+    if filters.get('title') and filters['title'].lower() in books['title'].str.lower().values:
         title = filters['title'].lower()
-        print(f"Filtering by title similarity: {title}")
-        # Check if the title exists in the dataset
-        if title in books['title'].str.lower().values:
-            # Find the index of the provided title
-            idx = books[books['title'].str.lower() == title].index[0]
-            # Compute cosine similarity scores with other books
-            sim_scores = list(enumerate(cosine_sim[idx]))
-            sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-            sim_scores = sim_scores[1:11]  # Exclude the first one because it's the same book
-            book_indices = [i[0] for i in sim_scores]
-            # Retrieve the titles of the top 10 most similar books
-            similar_books = books.iloc[book_indices]
+        idx = books[books['title'].str.lower() == title].index[0]
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        sim_scores = sim_scores[1:11]  # Exclude the first one because it's the same book
+        book_indices = [i[0] for i in sim_scores]
+        similar_books = books.iloc[book_indices]
 
-            # Combine similarity-based recommendations with filtered books using AND logic
-            filtered_books = pd.concat([filtered_books, similar_books]).drop_duplicates()
+        # Combine similarity-based recommendations with filtered books
+        filtered_books = pd.concat([filtered_books, similar_books]).drop_duplicates()
+
 
     # If no books match, return an empty list
     if filtered_books.empty:
         print("No books matched the filters.")
         return []
 
-    # Return only the book titles
-    print("Returning filtered book titles")
     return filtered_books[['title', 'author', 'price']].to_dict(orient='records')
 
 
