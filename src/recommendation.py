@@ -14,8 +14,10 @@ conversion_rate = 84
 
 # Convert the 'Price' column to USD
 books['price'] = books['price'] / conversion_rate
-
 books['price'] = books['price'].round(2)
+
+books['author'] = books['author'].fillna('')
+
 
 # Preprocess book genres for content-based filtering
 count_vectorizer = CountVectorizer(stop_words='english')
@@ -42,12 +44,6 @@ def recommend_by_filters(filters):
         print(f"Filtering by genre: {filters['genre']}")
         condition = condition & (books['genre'].str.lower() == filters['genre'].lower())
         print(f"Condition after genre filter: {condition.sum()} matches")
-
-    # Filter by subgenre
-    if filters.get('subgenre'):
-        print(f"Filtering by subgenre: {filters['subgenre']}")
-        condition = condition & (books['sub genre'].str.lower() == filters['subgenre'].lower())
-        print(f"Condition after subgenre filter: {condition.sum()} matches")
 
     # Filter by author
     if filters.get('author'):
