@@ -1,13 +1,16 @@
-# AI-Based Book Recommendation System
+# Book Recommendation System
 
-This project is an AI-driven book recommendation system that provides personalized book recommendations based on filters such as genre, author, price, and rating.
+This project is a similarity-based book recommendation system that provides personalized book recommendations based on various filters such as title, genre, author, price, and rating. It also allows users to list available genres and authors for easier selection.
 
 ## Features
 
-- **Filter by Genre, Author, Rating, and Price**: Get book recommendations based on multiple filters.
+- **Filter by Title, Genre, Author, Rating, and Price**: Get personalized book recommendations using multiple filters.
 - **Content-Based Recommendations**: Uses cosine similarity to recommend books similar to a selected one.
 - **Search by Keyword**: Find books by searching for keywords in the title.
-- **List Available Genres and Subgenres**: Retrieve available genres and subgenres for easier selection.
+- **List Available Genres and Authors**: Retrieve available genres and authors for easier selection.
+- **Display of Available Filters**: Buttons to display available genres and authors, dynamically loaded via the UI.
+- **Interactive Form**: Users can enter filters through an easy-to-use form to get recommendations.
+- **Flexible Filtering**: Users can input any combination of filters (title, genre, author, rating, and price range) to get recommendations. Filters are case-insensitive and support partial matching.
 
 ## Installation
 
@@ -47,7 +50,7 @@ This project is an AI-driven book recommendation system that provides personaliz
 
 ## Endpoints
 
-- **/recommend (GET/POST)**: Get book recommendations based on filters.
 - **/search (GET)**: Search for books by keyword in the title.
 - **/genres (GET)**: List all available genres.
+- **/authors (GET)**: List all available authors.
 - **/subgenres (GET)**: Get subgenres for a given genre.
