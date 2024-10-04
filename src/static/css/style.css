@@ -112,16 +112,14 @@ ul li {
   margin-top: 20px;
 }
 #recommendationForm {
-  text-align: center; /* Center elements inside the form */
+  text-align: center; 
 }
 
 #recommendationForm button {
-  margin: 20px auto; /* Add margin to the button */
-  display: block; /* Ensures it takes up the full width of the container */
+  margin: 20px auto;
+  display: block;
 }
 
-
-/* Ensure the buttons are aligned side by side */
 button {
   margin: 10px;
   padding: 10px 20px;

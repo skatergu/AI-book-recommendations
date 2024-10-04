@@ -68,11 +68,9 @@ def recommend_by_filters(filters):
             condition = condition & ((books['price'] >= min_price) & (books['price'] <= max_price))
             print(f"Condition after price filter: {condition.sum()} matches")
 
-    # Filter by rating
     if filters.get('rating') is not None:
         condition = condition & (books['rating'] >= filters['rating'])
 
-    # Apply AND condition based on the filters
     filtered_books = books[condition]
 
     # Sort by cosine similarity (if 'title' is provided and exists in the dataset)
@@ -89,7 +87,6 @@ def recommend_by_filters(filters):
         filtered_books = pd.concat([filtered_books, similar_books]).drop_duplicates()
 
 
-    # If no books match, return an empty list
     if filtered_books.empty:
         print("No books matched the filters.")
         return []

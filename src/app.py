@@ -19,10 +19,10 @@ def recommend():
     filters = {}
     # Handle POST requests (JSON or form)
     if request.method == 'POST':
-        if request.is_json:  # If the request contains JSON
+        if request.is_json:  
             print("request is json")
             filters = request.get_json() or {}
-        elif request.form:  # If the request contains form data
+        elif request.form: 
             print("request form")
             filters['genre'] = request.form.get('genre')
             filters['author'] = request.form.get('author')
@@ -36,7 +36,6 @@ def recommend():
                     float(min_price or 0), float(max_price or float('inf'))
                 ]
 
-    # Handle GET requests (Query parameters)
     elif request.method == 'GET':
         # Extract filters from query parameters
         genre = request.args.get('genre')
@@ -60,8 +59,6 @@ def recommend():
             ]
 
     print(f"Filters received: {filters}")
-
-    # Pass the filters to the recommendation function
     recommendations = recommend_by_filters(filters)
     return jsonify(recommendations)
 
@@ -80,7 +77,6 @@ def search_books():
     if isinstance(matching_books, str):
         return matching_books
 
-    # Return the matching book titles as a JSON response
     return jsonify(matching_books)
 
 # for retrieving all available authors
