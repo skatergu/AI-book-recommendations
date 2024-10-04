@@ -11,7 +11,7 @@
     <h1>Find Book Recommendations</h1>
     
     <form id="recommendationForm">
-        <label for="title">Title:</label>
+        <label for="title">AsTitle:</label>
         <input type="text" id="title" name="title" placeholder="e.g., Harry Potter">
 
         <label for="genre">Genre:</label>
@@ -37,7 +37,17 @@
         <button id="loadGenres">Show Available Genres</button>
         <button id="loadAuthors">Show Available Authors</button>
     </div>
-    
+
+    <!-- Sections to display genres and authors -->
+    <h2></h2>
+    <div id="genres"></div>
+
+    <h2></h2>
+    <div id="authors"></div>
+
+    <h2></h2>
+    <div id="recommendations"></div>
+
     <script>
         // Handle form submission
         document.getElementById('recommendationForm').addEventListener('submit', function(event) {
