@@ -47,10 +47,3 @@ This project is a similarity-based book recommendation system that provides pers
 
 6. **Access the Application**:
    Visit `http://127.0.0.1:5000/` in your browser.
-
-## Endpoints
-
-- **/search (GET)**: Search for books by keyword in the title.
-- **/genres (GET)**: List all available genres.
-- **/authors (GET)**: List all available authors.
-- **/subgenres (GET)**: Get subgenres for a given genre.
